@@ -1,10 +1,10 @@
+import router from '@/router'
 import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('authStore', {
   state: ()=> {
     return {
       user: null,
-      redirect: null,
       errors: {}
     }
 },
@@ -20,12 +20,14 @@ export const useAuthStore = defineStore('authStore', {
          }
        })
        const data = await res.json()
-
+       
        if (res.ok && data.success) {
         this.errors = {}
-        this.redirect = { toLogin: true }
+        router.push('/login')
        }else if (data.errors) {
         this.errors = data.errors
+       }else if (data.referralErr) {
+        this.errors = data
        }
 
      } catch (error) {
@@ -44,13 +46,16 @@ export const useAuthStore = defineStore('authStore', {
           }
         })
         const data = await res.json()
- 
+        
         if (res.ok && data.token) {
+          this.user = data.user
          this.errors = {}
          localStorage.setItem('Dababy_token', data.token)
-         this.redirect = { toDashboard: true }
+         router.push('/dashboard')
         }else if (data.errors) {
          this.errors = data.errors
+        }else if (data.message && !data.success) {
+          this.errors = data
         }
  
       } catch (error) {
@@ -59,17 +64,44 @@ export const useAuthStore = defineStore('authStore', {
       }
      },
 
-    async getUser(apiRoute) {
+    async getUser() {
     try {
-        const res = await fetch(apiRoute, {
+        const res = await fetch('/api/user', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
           }
         })
+
         const data = await res.json()
-        this.user = data
+
+        if (res.ok) {
+          this.user = data
+        }        
+    } catch (error) {
+      this.errors.getUser = error
+      console.log('something went wrong', error)
+    }
+  },
+
+  async logout() {
+    try {
+        const res = await fetch('/api/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
+          }
+        })
+
+        const data = await res.json()
+
+        if (res.ok && data.success) {
+          this.user = null
+          localStorage.removeItem('Dababy_token')
+          router.push('/login')
+        }        
     } catch (error) {
       this.errors.getUser = error
       console.log('something went wrong', error)
