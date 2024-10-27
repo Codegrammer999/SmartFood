@@ -1,31 +1,49 @@
 <template>
-    <div class="border border-slate-600 p-4 rounded-xl shadow-lg mx-4 sm:mx-0 flex flex-col justify-center">
-        <div class="flex items-center justify-between">
-            <button class="px-4 py-0.5 bg-blue-500 rounded-full">${{ menu.price }}</button>
-            <button>❤</button>
-        </div>
-
-        <div class="flex justify-center p-4">
-            <Image
-                :src="menu.image"
+    <!-- Menu Item -->
+    <div class="bg-slate-100 text-[#18082f] rounded-lg shadow-md overflow-hidden text-center">
+        <div class="flex justify-center">
+            <Image 
+                :src="menu.image" 
                 :alt="menu.description"
-                class="rounded-md"
+                class="w-full h-48 object-cover"
             />
         </div>
 
-        <div class="flex items-center justify-between">
-            <p class="text-sm font-bold">{{ menu.name }}</p>
-            <div class="size-10 bg-[#ef6002] rounded-full text-extrabold flex items-center justify-center">
-                <p class="text-lg">&plus;</p>
-            </div>
+    <div class="p-4 text-center">
+        <h2 class="text-2xl font-bold">{{ menu.name }}</h2>
+        <p class="mt-2 text-gray-700 line-clamp-2">{{ menu.description }}</p>
+        <div class="mt-4 flex items-center justify-between">
+            <span class="text-md text-[#ef6002]">
+                <span class="line-through opacity-70" v-if="menu.priceoff">${{ menu.priceoff }}</span> 
+                ${{ menu.price }}
+            </span>
+            <div class="text-sm font-semibold">{{ menu.category }}</div>
         </div>
     </div>
+
+    <button
+        @click="seeDetails" 
+        class="bg-[#ef6002] p-2 rounded-md text-white m-4 hover:opacity-60 duration-300">
+        View Details
+    </button>
+    </div>
+
 </template>
 
 <script setup>
+import { useMenuStore } from '@/stores/menu'
 import Image from './Image.vue'
+import { useRouter } from 'vue-router'
 
-defineProps({
+const menuStore = useMenuStore()
+const router = useRouter()
+
+const seeDetails = ()=> {
+    menuStore.menu = props.menu
+    router.push({ name: 'menuDetails', params: { id: props.menu.id }})
+}
+
+const props = defineProps({
     menu: {
         type: Object,
         required: true

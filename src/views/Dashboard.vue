@@ -39,7 +39,11 @@
     <div class="bg-slate-100 p-6 rounded-lg shadow-md text-[#18082f]">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-lg lg:text-2xl font-semibold">Items in Cart</h2>
-        <button class="py-1 px-4 bg-[#ef6002] opacity-80 font-extrabold text-xl text-white rounded-md hover:bg-opacity-90">&rightarrow;</button>
+        <router-link 
+            :to="{ name: 'cart'}" 
+            class="bg-[#ef6002] opacity-80 px-4 py-1 text-xl font-extrabold text-white rounded-md hover:bg-opacity-70">
+            &rightarrow;
+        </router-link>
       </div>
       <ul class="space-y-4">
         <li class="border-b pb-2 flex justify-between">

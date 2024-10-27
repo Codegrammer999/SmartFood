@@ -62,19 +62,13 @@
             </div>
 
             <transition name="slide">
-                <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-slate-800 rounded z-10 h-screen w-1/2 py-20 space-y-2 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
+                <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-gradient-to-b from-[#18082f] to-bg-slate-200 rounded z-10 h-screen w-1/2 pt-20 gap-4 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
 
                     <div class="flex flex-col gap-2" v-if="authStore.user">
                     <router-link
                         :to="{ name: 'dashboard' }"
                         class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Dashboard
-                    </router-link>
-
-                    <router-link
-                        :to="{ name: 'profile' }"
-                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                        Profile
                     </router-link>
 
                     <router-link
@@ -93,6 +87,12 @@
                         :to="{ name: 'orders' }"
                         class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Orders
+                    </router-link>
+
+                    <router-link
+                        :to="{ name: 'settings' }"
+                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
+                        Edit Account
                     </router-link>
                     
                     <Logout/>

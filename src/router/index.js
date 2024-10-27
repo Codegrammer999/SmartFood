@@ -7,17 +7,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/Home.vue')
+      component: () => import('@/views/Home.vue'),
+      meta: { guest: true }
     },
     {
       path: '/register',
       name: 'register',
-      component: () => import('@/views/auth/register.vue')
+      component: () => import('@/views/auth/register.vue'),
+      meta: { guest: true }
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/views/auth/login.vue')
+      component: () => import('@/views/auth/login.vue'),
+      meta: { guest: true }
     },
     {
       path: '/menu',
@@ -25,14 +28,21 @@ const router = createRouter({
       component: () => import('@/views/Menu.vue')
     },
     {
+      path: '/menu/:id',
+      name: 'menuDetails',
+      component: () => import('@/views/MenuDetails.vue')
+    },
+    {
       path: '/about-us',
       name: 'about',
-      component: () => import('@/views/About.vue')
+      component: () => import('@/views/About.vue'),
+      meta: { guest: true }
     },
     {
       path: '/services',
       name: 'services',
-      component: () => import('@/views/Service.vue')
+      component: () => import('@/views/Service.vue'),
+      meta: { guest: true }
     },
     {
       path: '/contact',
@@ -52,9 +62,9 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
-      path: '/profile',
-      name: 'profile',
-      component: () => import('@/views/Profile.vue'),
+      path: '/edit-account-details',
+      name: 'settings',
+      component: () => import('@/views/Settings.vue'),
       meta: { auth: true }
     },
     {
@@ -72,6 +82,8 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.meta.auth && !authStore.user) {
     next({ name: 'login'})
+  }else if(to.meta.guest && authStore.user){
+    next({ name: 'dashboard'})
   }else {
     next()
   }
