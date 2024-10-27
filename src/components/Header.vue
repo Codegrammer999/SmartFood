@@ -62,36 +62,36 @@
             </div>
 
             <transition name="slide">
-                <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-[#ffffff63] rounded z-10 h-screen w-1/2 py-20 space-y-2 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
+                <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-slate-800 rounded z-10 h-screen w-1/2 py-20 space-y-2 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
 
                     <div class="flex flex-col gap-2" v-if="authStore.user">
                     <router-link
                         :to="{ name: 'dashboard' }"
-                        class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Dashboard
                     </router-link>
 
                     <router-link
                         :to="{ name: 'profile' }"
-                        class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Profile
                     </router-link>
 
                     <router-link
                         :to="{ name: 'menu' }"
-                        class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Menu
                     </router-link>
 
                     <router-link
                         :to="{ name: 'cart' }"
-                        class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Cart
                     </router-link>
 
                     <router-link
                         :to="{ name: 'orders' }"
-                        class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                         Orders
                     </router-link>
                     
@@ -101,31 +101,31 @@
                     <div class="flex flex-col items-center gap-2" v-if="!authStore.user">
                         <router-link
                             :to="{ name: 'home' }"
-                            class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                             Home
                         </router-link>
 
                         <router-link
                             :to="{ name: 'services' }"
-                            class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                             Services
                         </router-link>
 
                         <router-link
                             :to="{ name: 'contact' }"
-                            class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                             Contact us
                         </router-link>
 
                         <router-link
                             :to="{ name: 'login' }"
-                            class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                             Login
                         </router-link>
 
                         <router-link
                             :to="{ name: 'register' }"
-                            class="w-full text-center px-3 py-1 bg-white text-slate-800 rounded-md duration-300">
+                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
                             Signup
                         </router-link>
                     </div>
