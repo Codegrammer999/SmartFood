@@ -49,7 +49,10 @@
 
         <nav class="w-full" v-else>
             <div class="flex justify-between p-4">
-                <h1 class="text-xl font-semibold"><span class="text-[#ef6002]">Smart</span>Food</h1>
+                <div class="flex space-x-4 items-baseline">
+                    <button @click="$router.go(-1)" class="text-4xl font-bold text-white">&larr;</button>
+                    <h1 class="text-xl font-semibold"><span class="text-[#ef6002]">Smart</span>Food</h1>
+                </div>
                 <button
                     v-if="mobileNavIsHidden"
                     @click="toggleMobileNav" 

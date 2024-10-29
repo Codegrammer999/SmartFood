@@ -5,6 +5,7 @@ export const useAuthStore = defineStore('authStore', {
   state: ()=> {
     return {
       user: null,
+      isFetchingUser: true,
       errors: {}
     }
 },
@@ -82,6 +83,8 @@ export const useAuthStore = defineStore('authStore', {
     } catch (error) {
       this.errors.getUser = error
       console.log('something went wrong', error)
+    }finally {
+      this.isFetchingUser = false
     }
   },
 

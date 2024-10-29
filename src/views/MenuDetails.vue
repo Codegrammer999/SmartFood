@@ -16,23 +16,66 @@
             <span class="text-xl font-semibold text-[#ef6002]">${{ menuStore.menu.price }}</span>
             <span class="bg-[#ef6002] text-white px-3 py-1 rounded-full text-sm">{{ menuStore.menu.category }}</span>
           </div>
-          <button class="mt-4 w-full flex items-center justify-center bg-[#ef6002] text-white py-2 rounded-lg hover:bg-[#d75402] transition duration-300">
-            <!-- SVG Icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M16 11V9H4v2h12zm-1-4h-2V5h-2V3h2V1h2v2h2v2h-2v2zm-3 8a2 2 0 110-4 2 2 0 010 4zM5 15a2 2 0 100-4 2 2 0 000 4z"/>
-            </svg>
-            Add to Cart
-          </button>
+
+          <div ref="parentButtons">
+            <button
+              v-if="addedToCart"
+              @click="addToCart" 
+              class="mt-4 w-full flex items-center justify-center bg-[#ef6002] text-white py-2 rounded-lg hover:bg-[#d75402] transition duration-300">
+              Added to Cart <span class="text-xl font-extrabold ml-2">&check;</span>
+            </button>
+
+            <button
+              v-else
+              @click="addToCart" 
+              class="mt-4 w-full flex items-center justify-center bg-[#ef6002] text-white py-2 rounded-lg hover:bg-[#d75402] transition duration-300">
+              <!-- SVG Icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M16 11V9H4v2h12zm-1-4h-2V5h-2V3h2V1h2v2h2v2h-2v2zm-3 8a2 2 0 110-4 2 2 0 010 4zM5 15a2 2 0 100-4 2 2 0 000 4z"/>
+              </svg>
+              Add to Cart
+            </button>
+          </div>
         </div>
       </div>
-
     </div>
 </div>
 </template>
 
 <script setup>
 import Image from '@/components/Image.vue'
+import { useAuthStore } from '@/stores/auth'
+import { useCartStore } from '@/stores/cart'
 import { useMenuStore } from '@/stores/menu'
+import autoAnimate from '@formkit/auto-animate'
+import { computed, onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const menuStore = useMenuStore()
+const cartStore = useCartStore()
+const authStore = useAuthStore()
+
+const router = useRouter()
+const nowInCart = ref(false)
+const parentButtons = ref(null)
+
+onMounted(()=> {
+  parentButtons.value && autoAnimate(parentButtons.value)
+})
+
+const addedToCart = computed(()=> {
+  if (nowInCart.value) {
+    return true
+  }
+  return false
+})
+
+const addToCart = ()=> {
+  if (!authStore.user) {
+    return router.push({ name: 'login'})
+  }
+  menuStore.menu.dateAddedToCart = new Date().toLocaleDateString()
+  cartStore.addToCart(menuStore.menu)
+  nowInCart.value = true
+}
 </script>

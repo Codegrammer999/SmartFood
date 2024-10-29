@@ -1,11 +1,20 @@
 <template>
 <div class="bg-[#18082f] text-white min-h-screen">
 
-  <div class="max-w-6xl mx-auto p-6">
+  <div class="max-w-6xl mx-auto p-4">
     <!-- Header -->
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-bold">Our Menu</h1>
+    <div class="text-cente mb-4">
+      <h1 class="text-3xl font-semibold">Our Menu</h1>
       <p class="mt-2 text-lg text-gray-300">Discover your favorite meals!</p>
+    </div>
+
+    <div class="flex justify-center items-center space-x-2 p-4">
+      <input 
+        type="text"
+        class="w-full py-2 px-4 rounded-md text-slate-800 focus:outline-none focus:outline-dotted focus:outline-[#ef6002] duration-500"
+        placeholder="Search by category"
+      >
+      <button class="px-6 py-2 bg-[#ef6002] rounded-md focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#ef6002] focus:text-slate-800 duration-300">Search</button>
     </div>
 
     <!-- Menu Grid -->

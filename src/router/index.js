@@ -73,12 +73,20 @@ const router = createRouter({
       component: () => import('@/views/Order.vue'),
       meta: { auth: true }
     },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: () => import('@/views/Checkout.vue'),
+      meta: { auth: true }
+    },
   ]
 })
 
 router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
-  await authStore.getUser()
+  if (authStore.isFetchingUser) {
+    await authStore.getUser()
+  }
 
   if (to.meta.auth && !authStore.user) {
     next({ name: 'login'})
