@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#230d42] p-6">
-      <h1 class="text-2xl font-bold text-slate-100">Dashboard</h1>
+  <h1 class="text-2xl font-bold text-slate-100">Dashboard</h1>
 
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
       <!-- Main Content -->
