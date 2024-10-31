@@ -15,7 +15,7 @@
             <div class="flex">
               <p class="p-2">{{ item.name }}</p><span class="text-lg p-2 font-light text-[#ef6002]">- {{ item.quantity }}</span>
             </div>
-            <p class="font-normal p-2">${{ item.price }}</p>
+            <p class="font-normal p-2">&#8358;{{ item.price }}</p>
           </div>
           <p class="text-sm text-gray-500">{{ item.category }}</p>
           <p class="text-sm text-gray-500">Added on: <span>{{ item.dateAddedToCart }}</span></p>
@@ -58,7 +58,7 @@
       <router-link
         :to="{ name: 'checkout' }"
         class="bg-[#ef6002] text-white px-4 py-2 rounded-md font-bold hover:bg-[#ff7b33] duration-300">
-        Proceed to Checkout - ${{ cartStore.totalPrice }}
+        Proceed to Checkout - &#8358;{{ cartStore.totalPrice }}
       </router-link>
     </div>
   </div>

@@ -1,9 +1,9 @@
 <template>
     <!-- Menu Item -->
-    <div class="bg-slate-100 text-[#18082f] rounded-lg shadow-md overflow-hidden text-center">
+    <div class="border border-white text-white bg-opacity-80 bg-[#18082f] text-center rounded-md">
         <div class="flex justify-center">
             <Image 
-                :src="menu.image" 
+                :src="`${backendUrl + '/storage/' + menu.image}`" 
                 :alt="menu.description"
                 class="w-full h-48 object-cover"
             />
@@ -14,8 +14,8 @@
         <p class="mt-2 text-gray-700 line-clamp-2">{{ menu.description }}</p>
         <div class="mt-4 flex items-center justify-between">
             <span class="text-md text-[#ef6002]">
-                <span class="line-through opacity-70" v-if="menu.priceoff">${{ menu.priceoff }}</span> 
-                ${{ menu.price }}
+                <span class="line-through opacity-70" v-if="menu.priceoff">&#8358;{{ menu.priceoff }}</span> 
+                &#8358;{{ menu.price }}
             </span>
             <div class="text-sm font-semibold">{{ menu.category }}</div>
         </div>
@@ -34,9 +34,11 @@
 import { useMenuStore } from '@/stores/menu'
 import Image from './Image.vue'
 import { useRouter } from 'vue-router'
+import { ref } from 'vue'
 
 const menuStore = useMenuStore()
 const router = useRouter()
+const backendUrl = ref(import.meta.env.VITE_BACKEND_URL)
 
 const seeDetails = ()=> {
     menuStore.menu = props.menu

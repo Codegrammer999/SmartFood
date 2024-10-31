@@ -1,5 +1,5 @@
 <template>
-    <p class="text-red-500 font-semibold text-sm">{{ error }}</p>
+    <p class="text-red-600 text-sm">{{ error }}</p>
 </template>
 
 <script setup>

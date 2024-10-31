@@ -1,5 +1,5 @@
 <template>
-    <header v-if="!($route.name === 'register') && !($route.name === 'login')">
+    <header>
         <nav class="justify-between items-center p-2 text-[16px] hidden sm:flex desktop" v-if="desktop"> 
             <div class="flex items-center space-x-2 font-bold">
                 <Image
@@ -48,10 +48,10 @@
         </nav>
 
         <nav class="w-full" v-else>
-            <div class="flex justify-between p-4">
-                <div class="flex space-x-4 items-baseline">
-                    <button @click="$router.go(-1)" class="text-4xl font-bold text-white">&larr;</button>
-                    <h1 class="text-xl font-semibold"><span class="text-[#ef6002]">Smart</span>Food</h1>
+            <div class="flex justify-between p-4" v-if="authStore.user">
+                <div class="flex space-x-4 items-center">
+                    <ArrowLeftEndOnRectangleIcon class="size-8" @click="$router.go(-1)"/>
+                    <h1 class="text-[20px] font-semibold"><span class="text-[#ef6002]">Smart</span>Food</h1>
                 </div>
                 <button
                     v-if="mobileNavIsHidden"
@@ -68,69 +68,74 @@
                 <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-gradient-to-b from-[#18082f] to-bg-slate-200 rounded z-10 h-screen w-1/2 pt-20 gap-4 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
 
                     <div class="flex flex-col gap-2" v-if="authStore.user">
-                    <router-link
-                        :to="{ name: 'dashboard' }"
-                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                        Dashboard
-                    </router-link>
 
-                    <router-link
-                        :to="{ name: 'menu' }"
-                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                        Menu
-                    </router-link>
+                        <router-link
+                            :to="{ name: 'dashboard' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Dashboard</span> <Squares2X2Icon class="size-6"/>
+                        </router-link>
 
-                    <router-link
-                        :to="{ name: 'cart' }"
-                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                        Cart
-                    </router-link>
+                        <router-link
+                            :to="{ name: 'menu' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Menu</span> <PuzzlePieceIcon class="size-6"/>
+                        </router-link>
 
-                    <router-link
-                        :to="{ name: 'orders' }"
-                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                        Orders
-                    </router-link>
+                        <router-link
+                            :to="{ name: 'cart' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Cart</span> <ShoppingCartIcon class="size-6"/>
+                        </router-link>
 
-                    <router-link
-                        :to="{ name: 'settings' }"
-                        class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                        Edit Account
-                    </router-link>
-                    
-                    <Logout/>
+                        <router-link
+                            :to="{ name: 'orders' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Orders</span> <ClipboardDocumentListIcon class="size-6"/>
+                        </router-link>
+
+                        <router-link
+                            :to="{ name: 'notifications' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Notifications</span> <BellAlertIcon class="size-6 text-[#]"/>
+                        </router-link>
+
+                        <router-link
+                            :to="{ name: 'settings' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Settings</span> <Cog6ToothIcon class="size-6"/>
+                        </router-link>
                     </div>
 
-                    <div class="flex flex-col items-center gap-2" v-if="!authStore.user">
-                        <router-link
-                            :to="{ name: 'home' }"
-                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                            Home
-                        </router-link>
+                        <div class="flex flex-col items-center gap-2" v-else>
+                            <router-link
+                                :to="{ name: 'home' }"
+                                class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                                <span class="mx-1">Home</span> <HomeIcon class="size-6"/>
+                            </router-link>
 
-                        <router-link
-                            :to="{ name: 'services' }"
-                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                            Services
-                        </router-link>
+                            <router-link
+                                :to="{ name: 'services' }"
+                                class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                                <span class="mx-1">Services</span> <BriefcaseIcon class="size-6"/>
+                            </router-link>
 
-                        <router-link
-                            :to="{ name: 'contact' }"
-                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                            Contact us
-                        </router-link>
+                            <router-link
+                                :to="{ name: 'contact' }"
+                                class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                                <span class="mx-1">Contact us</span> <PhoneIcon class="size-6"/>
+                            </router-link>
 
-                        <router-link
-                            :to="{ name: 'login' }"
-                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                            Login
-                        </router-link>
+                            <router-link
+                                :to="{ name: 'login' }"
+                                class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                                <span class="mx-1">Login</span> <ArrowRightStartOnRectangleIcon class="size-6"/>
+                            </router-link>
 
-                        <router-link
-                            :to="{ name: 'register' }"
-                            class="w-full text-center px-8 py-3 bg-white text-slate-800 rounded-md duration-300">
-                            Signup
-                        </router-link>
+                            <router-link
+                                :to="{ name: 'register' }"
+                                class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                                <span class="mx-1">Signup</span> <UserPlusIcon class="size-6"/>
+                            </router-link>
                     </div>
                 </div>
             </transition>
@@ -142,7 +147,21 @@
 import { computed, ref } from 'vue'
 import Image from './Image.vue'
 import { useAuthStore } from '@/stores/auth'
-import Logout from './Logout.vue'
+import { 
+        Squares2X2Icon, 
+        Bars3Icon, 
+        ClipboardDocumentListIcon, 
+        Cog6ToothIcon, 
+        HomeIcon, 
+        ShoppingCartIcon, 
+        BellAlertIcon,
+        PuzzlePieceIcon,
+        PhoneIcon,
+        ArrowLeftEndOnRectangleIcon,
+        UserPlusIcon,
+        BriefcaseIcon,
+        ArrowRightStartOnRectangleIcon
+    } from '@heroicons/vue/24/solid'
 
 const authStore = useAuthStore()
 

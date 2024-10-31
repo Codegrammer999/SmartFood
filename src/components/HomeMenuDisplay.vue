@@ -6,7 +6,7 @@
                 :alt="menu.description"
                 class="size-40 rounded-full"
             />
-            <div class="size-10 bg-green-800 rounded-full text-white flex items-center justify-center absolute bottom-8 right-4">${{ menu.price }}</div>
+            <div class="size-10 bg-green-800 rounded-full text-white flex items-center justify-center absolute bottom-8 right-4">&#8358;{{ menu.price }}</div>
         </div>
 
         <div class="flex -space-x-4 justify-center">

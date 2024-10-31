@@ -79,6 +79,12 @@ const router = createRouter({
       component: () => import('@/views/Checkout.vue'),
       meta: { auth: true }
     },
+    {
+      path: '/notifications',
+      name: 'notifications',
+      component: () => import('@/views/Notifications.vue'),
+      meta: { auth: true }
+    },
   ]
 })
 

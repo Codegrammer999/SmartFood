@@ -2,8 +2,7 @@
     <label 
         class="flex items-center space-x-2">
         <input 
-            :type="inputType" 
-            class="focus:outline-none focus:ring-2 focus:ring-[#ef6002]" 
+            :type="inputType"  
             required
         />
         <span>{{ paymentName }}</span>

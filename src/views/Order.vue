@@ -1,7 +1,7 @@
 <template>
-  <div class="text-white bg-[#230d42] min-h-screen p-6">
+  <div class="text-white bg-[#230d42] p-6">
     <div class="max-w-4xl mx-auto space-y-8" v-if="orderStore">
-      <h1 class="text-2xl font-semibold text-[#F97316]">Your Orders</h1>
+      <h1 class="text-2xl font-semibold text-white">Your Orders</h1>
 
       <div v-if="orderStore.orders.length">
         <!-- Filter Orders -->
@@ -46,7 +46,7 @@
                 </div>
                 
                 <div class="text-right">
-                  <p class="font-semibold text-xl">${{ item.price.toFixed(2) }}</p>
+                  <p class="font-semibold text-xl">&#8358;{{ item.price.toFixed(2) }}</p>
                   <button 
                     class="mt-2 bg-[#F97316] text-white px-4 py-2 rounded-md hover:bg-[#ff7b33] transition duration-300">
                     View Details

@@ -1,18 +1,20 @@
 <template>
-  <div class="min-h-screen text-slate-100 flex items-center justify-center bg-[#18082f]">
-    <div class="bg-white bg-opacity-30 shadow-md rounded-lg px-8 py-10 max-w-sm md:max-w-lg xl:max-w-xl w-full">
-      <h2 class="text-3xl font-bold text-center mb-6 text-[#ef6002]">Register</h2>
+  <div class="flex items-center justify-center h-screen">
+    <div class="backdrop-blur-lg bg-white/10 p-6 rounded-lg shadow-lg max-w-sm md:max-w-lg lg:max-w-2xl w-full">
+      
+      <h1 class="text-3xl font-extrabold text-center mb-2"><span class="text-[#ef6002]">Smart</span>Food</h1>
+      <p class="text-white text-center mb-6"><i>The home of good food!.</i></p>
 
-      <form @submit.prevent="register" class="space-y-3">
+      <h2 class="text-2xl font-bold text-white text-cente mb-6">Sign Up</h2>
+
+      <form @submit.prevent="register" class="space-y-6">
         <!-- Name -->
-        <div>
-          <label class="block text-sm font-medium mb-1" for="name">Name</label>
+        <div ref="nameParent">
           <input
             v-model="formData.name"
             type="text"
-            id="name"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ef6002] bg-slate-200 text-slate-800"
-            placeholder="Name"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
+            placeholder="Full Name"
             required
           />
           <ParagraphError :error="formData.error.name"/>
@@ -20,13 +22,11 @@
         </div>
 
         <!-- Email -->
-        <div>
-          <label class="block text-sm font-medium mb-1" for="email">Email</label>
+        <div ref="emailParent">
           <input
             v-model="formData.email"
             type="email"
-            id="email"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ef6002] bg-slate-200 text-slate-800"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
             placeholder="Email Address"
             required
           />
@@ -35,13 +35,11 @@
         </div>
 
         <!-- Password -->
-        <div>
-          <label class="block text-sm font-medium mb-1" for="password">Password</label>
+        <div ref="passwordParent">
           <input
             v-model="formData.password"
             type="password"
-            id="password"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ef6002] bg-slate-200 text-slate-800"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
             placeholder="Password"
             required
           />
@@ -51,49 +49,50 @@
 
         <!-- Confirm Password -->
         <div>
-          <label class="block text-sm font-medium mb-1" for="confirmPassword">Confirm Password</label>
           <input
             v-model="formData.password_confirmation"
             type="password"
-            id="confirmPassword"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ef6002] bg-slate-200 text-slate-800"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
             placeholder="Confirm Password"
             required
           />
         </div>
 
         <!-- Referral ID -->
-        <div>
-          <label class="block text-sm font-medium mb-1" for="referralId">Referral ID(Optional)</label>
+        <div ref="refParent">
           <input
             v-model="formData.referral_id"
             type="text"
-            id="referralId"
-            class="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#ef6002] bg-slate-200 text-slate-800"
-            placeholder="Enter referral ID (optional)"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
+            placeholder="Referral ID (Optional)"
           />
           <ParagraphError :error="errors.referral_id[0]" v-if="errors.referral_id"/>
-          <ParagraphError :error="errors.referralErr" v-if="errors.referralErr"/>
         </div>
 
         <!-- Submit Button -->
         <div>
-        <LoadingButton v-if="formData.isProcessing"/>
+          <LoadingButton v-if="formData.isProcessing"/>
           <button
             v-else
             type="submit"
-            class="w-full bg-[#ef6002] hover:bg-[#d45602] text-white font-bold py-2 rounded-md focus:outline-none transition duration-300"
+            class="w-full bg-[#ef6002] hover:bg-[#d45602] text-white font-semibold py-3 rounded-lg transition duration-300"
             :disabled="formData.isProcessing"
           >
-            Submit
+            Register
           </button>
         </div>
 
         <div class="text-center">
-            <p>Already have an account? <router-link :to="{ name: 'login' }">login</router-link></p>
+          <p class="text-sm text-white">
+            Already have an account? 
+            <router-link class="text-[#ef6002]" :to="{ name: 'login' }">Login</router-link>
+          </p>
         </div>
       </form>
     </div>
+    <Notify
+      :message="notifyMsg"
+    />
   </div>
 </template>
 
@@ -101,76 +100,86 @@
 import LoadingButton from '@/components/LoadingButton.vue'
 import ParagraphError from '@/components/ParagraphError.vue'
 import { useAuthStore } from '@/stores/auth'
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
 import { storeToRefs } from 'pinia'
-import { onMounted, reactive, watch } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
+import Notify from '@/components/Notify.vue'
+import { useRouter } from 'vue-router'
 
-onMounted(()=> {
+const [ emailParent ] = useAutoAnimate()
+const [ nameParent ] = useAutoAnimate()
+const [ passwordParent ] = useAutoAnimate()
+const [ refParent ] = useAutoAnimate()
+const notifyMsg = ref('')
+const router = useRouter()
+
+onMounted(() => {
     errors.value = {}
 })
 
-const formData = reactive({
-    name: ''.trim(),
-    email: ''.trim(),
-    password: ''.trim(),
-    password_confirmation: ''.trim(),
+let formData = reactive({
+    name: '',
+    email: '',
+    password: '',
+    password_confirmation: '',
     referral_id: '',
     isProcessing: false,
     error: {}
 })
 
-const { register: registerStore  } = useAuthStore()
+const { register: registerStore } = useAuthStore()
 let { errors } = storeToRefs(useAuthStore())
 
-watch(errors, (val)=> {
-    if (val) {
-        formData.isProcessing = false
-    }
-})
-
-const register = ()=> {
+const register = async() => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     switch (true) {
         case formData.name === '':
             formData.error.name = 'Name field is required'
-            formData.error.email = ''
-            formData.error.password = ''
             break
-
         case formData.name.length < 6:
-            formData.error.name = 'Please enter maximum of 5 characters'
-            formData.error.email = ''
-            formData.error.password = ''
+            formData.error.name = 'Name must be at least 6 characters'
             break
-
         case formData.email === '':
             formData.error.email = 'Email field is required'
-            formData.error.name = ''
-            formData.error.password = ''
             break
-
         case !emailRegex.test(formData.email):
-            formData.error.email = 'Please enter a valid email address'
-            formData.error.name = ''
-            formData.error.password = ''
+            formData.error.email = 'Invalid email address'
             break
-
-            case formData.password === '':
+        case formData.password === '':
             formData.error.password = 'Password field is required'
-            formData.error.name = ''
-            formData.error.email = ''
             break
-
         case formData.password.length < 6:
-            formData.error.password = 'Please use a more secure password'
-            formData.error.name = ''
-            formData.error.email = ''
+            formData.error.password = 'Password must be at least 6 characters'
             break
-    
         default:
-            formData.isProcessing = true
-            formData.error = {}
-            registerStore('/api/register', formData)
-            break
+          errors.value = {}
+          formData.error = {}
+          const res = await registerStore('/api/register', formData)
+          
+          if (res) {
+            notifyMsg.value = 'Registration Success. Redirecting to login...'
+            formData = {
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: '',
+                referral_id: '',
+                error: {}
+            }
+            setTimeout(() => {
+              notifyMsg.value = ''
+              router.push({name: 'login'})
+            }, 2000)
+          }else {
+             notifyMsg.value = 'Registration Error!'
+             formData.password = ''
+             formData.password_confirmation = ''
+
+             setTimeout(() => {
+              notifyMsg.value = ''
+             }, 4000)
+          }
+          break
     }
 }
 </script>
