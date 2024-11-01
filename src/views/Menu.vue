@@ -8,13 +8,13 @@
       <p class="mt-2 text-lg text-gray-300">Discover your favorite meals!</p>
     </div>
 
-    <div class="flex justify-center items-center pb-4 p-2">
+    <div class="flex justify-center items-center pb-4 p-2 space-x-2">
       <input 
         type="text"
-        class="w-full py-3 px-4 text-slate-800 focus:outline-none duration-500"
+        class="w-full py-3 px-4 text-slate-800 focus:outline-none duration-500 rounded-md"
         placeholder="Search by category"
       >
-      <div class="bg-[#ef6002] py-2 px-2 duration-300">
+      <div class="bg-[#ef6002] py-2 px-2 duration-300 rounded-md">
         <MagnifyingGlassIcon class="size-8"/>
       </div>
     </div>
@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import MenuCard from '@/components/MenuCard.vue'
+import { MenuCard } from "@/asyncComponents"
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
 import { onMounted, ref } from 'vue'
 import { useMenus } from "@/composables/UseMenus"

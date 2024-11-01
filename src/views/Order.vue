@@ -46,7 +46,7 @@
                 </div>
                 
                 <div class="text-right">
-                  <p class="font-semibold text-xl">&#8358;{{ item.price.toFixed(2) }}</p>
+                  <p class="font-semibold text-xl">&#8358;{{ item.price }}</p>
                   <button 
                     class="mt-2 bg-[#F97316] text-white px-4 py-2 rounded-md hover:bg-[#ff7b33] transition duration-300">
                     View Details

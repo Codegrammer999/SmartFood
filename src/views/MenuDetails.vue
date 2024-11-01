@@ -4,7 +4,7 @@
       <div class="bg-white text-[#18082f] rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
         <Image 
           :src="`${backendUrl + '/storage/' + menuStore.menu.image}`" 
-          :alt="menuStore.menu.description" 
+          :alt="menuStore.menu.category" 
           class="w-full h-64 md:h-48 object-cover"
         />
 
@@ -37,6 +37,9 @@
         </div>
       </div>
     </div>
+    <Notify
+      :message="notifyMsg"
+    />
   </div>
 </template>
 
@@ -47,18 +50,30 @@ import { useCartStore } from '@/stores/cart'
 import { useMenuStore } from '@/stores/menu'
 import autoAnimate from '@formkit/auto-animate'
 import { computed, onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+import Notify from '@/components/Notify.vue'
 
 const menuStore = useMenuStore()
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 const router = useRouter()
+const route = useRoute()
 const nowInCart = ref(false)
 const parentButtons = ref(null)
 const backendUrl = ref(import.meta.env.VITE_BACKEND_URL)
+const menuId = ref(route.params.id)
+const notifyMsg = ref('')
 
-onMounted(()=> {
+onMounted(async()=> {
   parentButtons.value && autoAnimate(parentButtons.value)
+  const res = await menuStore.getSpecificMenu(menuId.value)
+  
+  if (!res) {
+    notifyMsg.value = 'Error fetching menu. Please try again!'
+    setTimeout(() => {
+      notifyMsg.value = ''
+    }, 4000)
+  }
 })
 
 const addedToCart = computed(()=> {
@@ -76,6 +91,7 @@ const addToCart = ()=> {
 </script>
 
 <style scoped>
+/* Optional: Add custom styles for hover effects and transitions */
 .transition-transform {
   transition: transform 0.2s ease;
 }

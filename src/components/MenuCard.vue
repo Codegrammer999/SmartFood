@@ -1,6 +1,6 @@
 <template>
     <!-- Menu Item -->
-    <div class="border border-white text-white bg-opacity-80 bg-[#18082f] text-center rounded-md">
+    <div class="backdrop-blur-lg bg-white/10 text-white bg-opacity-80 bg-[#18082f] text-center rounded-md">
         <div class="flex justify-center">
             <Image 
                 :src="`${backendUrl + '/storage/' + menu.image}`" 
@@ -11,7 +11,7 @@
 
     <div class="p-4 text-center">
         <h2 class="text-2xl font-bold">{{ menu.name }}</h2>
-        <p class="mt-2 text-gray-700 line-clamp-2">{{ menu.description }}</p>
+        <p class="mt-2 text-gray-300 line-clamp-2">{{ menu.description }}</p>
         <div class="mt-4 flex items-center justify-between">
             <span class="text-md text-[#ef6002]">
                 <span class="line-through opacity-70" v-if="menu.priceoff">&#8358;{{ menu.priceoff }}</span> 
@@ -20,30 +20,22 @@
             <div class="text-sm font-semibold">{{ menu.category }}</div>
         </div>
     </div>
-
-    <button
-        @click="seeDetails" 
-        class="bg-[#ef6002] p-2 rounded-md text-white m-4 hover:opacity-60 duration-300">
-        View Details
-    </button>
+    <div class="p-6">
+        <router-link
+            :to="{ name: 'menuDetails', params: { id: menu.id }}"
+            class="bg-[#ef6002] p-4 rounded-md text-white m-4 hover:opacity-60 duration-300">
+            View Details
+        </router-link>
+    </div>
     </div>
 
 </template>
 
 <script setup>
-import { useMenuStore } from '@/stores/menu'
 import Image from './Image.vue'
-import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
-const menuStore = useMenuStore()
-const router = useRouter()
 const backendUrl = ref(import.meta.env.VITE_BACKEND_URL)
-
-const seeDetails = ()=> {
-    menuStore.menu = props.menu
-    router.push({ name: 'menuDetails', params: { id: props.menu.id }})
-}
 
 const props = defineProps({
     menu: {

@@ -1,24 +1,24 @@
 <template>
-<div class="bg-[#18082f] text-white p-4 flex flex-col justify-between relative" :class="{ 'opacity-30': approveModal }">
+<div>
+<div class="bg-[#18082f] text-white flex flex-col justify-between relative" :class="{ 'opacity-30': approveModal }">
   <!-- Cart Items Section -->
   <div class="p-4" ref="parent">
     <h1 class="text-3xl font-bold mb-6 text-cente text-slate-200" v-if="cartStore.cartItems.length">Your Cart</h1>
 
     <!-- Cart Item -->
     <div class="space-y-4" v-if="cartStore.cartItems.length">
-      <div class="bg-white text-[#18082f] rounded-lg w-full" 
+      <div class="backdrop-blur-lg bg-white/10 text-white rounded-lg w-full" 
         v-for="item in cartStore.cartItems"
         :key="item.id">
 
         <div class="px-4">
-          <div class="text-xl font-semibold flex justify-between items-center p-2">
-            <div class="flex">
-              <p class="p-2">{{ item.name }}</p><span class="text-lg p-2 font-light text-[#ef6002]">- {{ item.quantity }}</span>
-            </div>
-            <p class="font-normal p-2">&#8358;{{ item.price }}</p>
+          <div class="text-xl flex justify-between items-center p-2">
+            <p>{{ item.name }}</p>
+            <p class="p-2">&#8358;{{ item.price }}</p>
           </div>
-          <p class="text-sm text-gray-500">{{ item.category }}</p>
-          <p class="text-sm text-gray-500">Added on: <span>{{ item.dateAddedToCart }}</span></p>
+          <p class="text-sm opacity-65">{{ item.category }}</p>
+          <p class="text-sm opacity-70">Added on: <span>{{ item.dateAddedToCart }}</span></p>
+          <p class="text-sm">Quantity: {{ item.quantity }}</p>
         </div>
 
         <div class="flex items-center justify-between space-x-2 px-4 py-2 mt-6">
@@ -35,13 +35,10 @@
                 </button>
             </div>
 
-          <button 
-            class="text-red-500"
+          <TrashIcon 
+            class="text-[#ef6002] size-8"
             @click="approveDelete(item)">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-1 14H6L5 7M9 4h6M10 2h4a1 1 0 011 1v1M7 7h10" />
-            </svg>
-          </button>
+          </TrashIcon>
         </div>
 
       </div>
@@ -57,7 +54,7 @@
     <div class="flex justify-between items-center">
       <router-link
         :to="{ name: 'checkout' }"
-        class="bg-[#ef6002] text-white px-4 py-2 rounded-md font-bold hover:bg-[#ff7b33] duration-300">
+        class="bg-[#ef6002] text-white px-4 py-2 rounded-md hover:bg-[#ff7b33] duration-300">
         Proceed to Checkout - &#8358;{{ cartStore.totalPrice }}
       </router-link>
     </div>
@@ -73,11 +70,13 @@
       class="bg-[#ef6002] hover:bg-white hover:ring hover:ring-[#ef6002] duration-300 text-white px-4 py-2 rounded-md m-2">Remove</button>
     <button @click="cancelItemRemoval" class="bg-white ring ring-[#ef6002] px-4 py-2 rounded-md m-2">Cancel</button>
 </div>
+</div>
 </template>
 
 <script setup>
 import { useCartStore } from '@/stores/cart'
 import autoAnimate from '@formkit/auto-animate'
+import { TrashIcon } from '@heroicons/vue/24/solid'
 import { onMounted, ref } from 'vue'
 
 const cartStore = useCartStore()

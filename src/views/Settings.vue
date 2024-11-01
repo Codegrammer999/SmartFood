@@ -5,13 +5,13 @@
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto space-y-6">
       <!-- User Info -->
-      <section class="bg-white opacity-90 text-slate-800 p-4 rounded">
+      <section class="backdrop-blur-lg bg-white/10 text-white text-opacity-90 p-4 rounded">
         <h2 class="text-xl font-semibold mb-6">Your Information</h2>
         <div class="space-y-2">
           <p><span class="font-bold">Name:</span> {{ user.name }}</p>
           <p><span class="font-bold">Email:</span> {{ user.email }}</p>
           <p><span class="font-semibold">Referral id: </span>{{ user.referral_id }}</p>
-          <div class="flex space-x-2 bg-[#ef6002] focus:bg-[#ef6102b2] duration-300 text-white w-fit px-4 py-2 rounded-md" @click="copyReferralId">
+          <div class="flex space-x-2 bg-white focus:bg-[#ef6102b2] duration-300 text-slate-800 w-fit px-4 py-2 rounded-md" @click="copyReferralId">
             <p>{{ changeCopyText }}</p>
             <ClipboardDocumentCheckIcon class="size-6" v-if="copied"/>
             <ClipboardIcon class="size-6" v-else/>
@@ -19,35 +19,31 @@
         </div>
       </section>
 
-      <section class="bg-white text-[#18082f] p-4 rounded">
+      <section class="backdrop-blur-lg bg-white/10 text-white text-opacity-90 p-4 rounded">
         <h2 class="text-xl font-semibold mb-6">Change Password</h2>
         <form @submit.prevent="updatePassword" class="space-y-4">
           <div>
             <label for="currentPassword" class="block font-semibold">Current Password</label>
-            <input 
-              v-model="currentPassword" 
-              type="password" 
-              id="currentPassword" 
-              class="w-full mt-2 p-3 rounded-md text-slate-800" 
-              placeholder="Enter current password" />
+            <CheckoutInput
+              -input-type="password"
+              id="currentPassword"
+              placeholder="Enter current password"/>
           </div>
           <div>
             <label for="newPassword" class="block font-semibold">New Password</label>
-            <input 
-              v-model="newPassword" 
-              type="password" 
-              id="newPassword" 
-              class="w-full mt-2 p-3 rounded-md text-slate-800" 
+            <CheckoutInput
+              -input-type="password"
+              id="newPassword"
               placeholder="Enter new password"/>
           </div>
           <button 
-            class="bg-[#ef6002] text-white px-4 py-2 rounded-md hover:bg-white focus:ring-2 focus:ring-[#ef6002] duration-300 focus-within:text-slate-800">
+            class="bg-white bg-opacity-80 text-slate-800 px-4 py-2 rounded-md hover:bg-white focus:ring-2 focus:ring-[#ef6002] duration-300 focus-within:text-slate-800">
             Update Password
           </button>
         </form>
       </section>
 
-      <div class="bg-[#ef6002] text-white p-2 flex items-center justify-center w-fit rounded" @click="logoutUser">
+      <div class="bg-white opacity-80 text-slate-800 p-2 flex items-center justify-center w-fit rounded" @click="logoutUser">
         <ArrowLeftEndOnRectangleIcon class="size-8"/>
         <p>Sign out</p>
       </div>
@@ -57,6 +53,7 @@
 
 <script setup>
 import { useAuthStore } from '@/stores/auth'
+import CheckoutInput from '@/components/CheckoutInput.vue'
 import { 
     ClipboardIcon, 
     ClipboardDocumentCheckIcon, 
@@ -66,7 +63,6 @@ import { computed, ref } from 'vue'
 
 const authStore = useAuthStore()
 const user = authStore.user
-
 const username = ref('')
 const currentPassword = ref('')
 const newPassword = ref('')

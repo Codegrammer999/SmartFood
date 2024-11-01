@@ -2,7 +2,7 @@
     <input 
         :type="InputType" 
         :placeholder="placeholder" 
-        class="p-2 focus:outline-none focus:border-none focus:ring-2 focus:ring-[#ef6002] duration-300 rounded border border-slate-500"
+        class="p-2 focus:outline-none text-slate-800 focus:border-none focus:ring-2 focus:ring-[#ef6002] duration-300 rounded w-full"
     />
 </template>
 

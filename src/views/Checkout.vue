@@ -13,7 +13,7 @@
       <h1 class="text-3xl font-extrabold text-[#ef6002] mb-6">Checkout</h1>
 
       <!-- Shipping Information -->
-      <div class="bg-white text-[#18082f] p-8 rounded-lg shadow-lg">
+      <div class="backdrop-blur-lg bg-white/10 text-white p-8 rounded-md shadow-md">
         <h2 class="text-2xl font-semibold mb-6">Shipping Information</h2>
         <form class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -46,18 +46,25 @@
       </div>
 
       <!-- Order Summary -->
-      <div class="bg-white text-[#18082f] p-8 rounded-lg shadow-lg">
+      <div class="backdrop-blur-lg bg-white/10 text-white p-8 rounded-lg shadow-lg">
         <h2 class="text-2xl font-semibold mb-4">Order Summary</h2>
         <div class="space-y-3">
-          <div 
-            class="flex justify-between items-center text-lg"
+          <div
             v-for="item in cartStore.cartItems"
             :key="item.id"
           >
-            <span>{{ item.name }}</span>
-            <span class="font-semibold">&#8358;{{ item.price }}</span>
+          <div class="flex justify-between items-center">
+            <p>Food: {{ item.name }}</p>
+            <p class="font-semibold">&#8358;{{ item.price }}</p>
           </div>
+          <div class="flex justify-between items-center">
+          <p>Quantity: </p>
+          <p>{{ item.quantity }}</p>
+          </div>
+          </div>
+
           <hr class="my-4" />
+
           <div class="flex justify-between items-center text-xl font-bold">
             <span>Total</span>
             <span>&#8358;{{ cartStore.totalPrice }}</span>
