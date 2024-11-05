@@ -2,11 +2,7 @@
   <div class="bg-[#18082f] text-white min-h-screen p-6">
 
     <Notify
-      :title="notifyTitle"
       :message="notifyMsg"
-      type="warning"
-      v-if="callNotify"
-      @close="callNotify = false"
     />
 
     <div class="max-w-4xl mx-auto space-y-8">
@@ -72,12 +68,11 @@
         </div>
       </div>
 
-      <!-- Place Order Button -->
       <div class="flex justify-center">
         <button
           @click="handleCheckOut"
           class="bg-[#ef6002] text-white px-8 py-3 rounded-full font-bold text-lg shadow-md hover:bg-[#ff7b33] transition-all duration-300">
-          Place Order
+          Make Payment
         </button>
       </div>
     </div>
@@ -86,36 +81,37 @@
 
 <script setup>
 import CheckoutInput from '@/components/CheckoutInput.vue'
+import RadioInput from '@/components/RadioInput.vue'
 import { useRouter } from 'vue-router'
-import { useOrderStore } from '@/stores/order'
 import { useCartStore } from '@/stores/cart'
+import { useOrderStore } from '@/stores/order'
 import Notify from '@/components/Notify.vue'
 import { ref } from 'vue'
 
-const orderStore = useOrderStore()
 const cartStore = useCartStore()
+const orderStore = useOrderStore()
 const router = useRouter()
 const notifyMsg = ref('')
-const notifyTitle = ref('')
-const callNotify = ref(false)
+
+const paymentForm = ref({
+  amount: cartStore.totalPrice
+})
 
 const handleCheckOut = () => {
   if (!cartStore.cartItems.length) {
-    notifyTitle.value = 'Empty cart!'
-    notifyMsg.value = 'You have no items in cart, Please add'
-    callNotify.value = true
+    notifyMsg.value = 'You have no items in cart, Please add.'
+    setTimeout(() => {
+      notifyMsg.value = ''
+    }, 4000)
     return
   }
+
   orderStore.placeOrder(cartStore.cartItems)
-  cartStore.clearCart()
-  router.push({ name: 'orders' })
+  router.push({name: 'payment'})
 }
 </script>
 
 <style scoped>
-body {
-  font-family: 'Poppins', sans-serif;
-}
 input {
   background-color: #f8f9fa;
   border: 1px solid #ddd;

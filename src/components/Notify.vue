@@ -1,11 +1,11 @@
 <template>
   <Transition name="slide">
-    <div class="w-fit flex space-x-2 items-center justify-between right-0 top-2 bg-[#ef6002] bg-opacity-90 rounded-md shadow-lg fixed z-50" v-if="notify">
+    <div class="w-fit flex space-x-2 items-center justify-between right-0 top-2 bg-[#ef6002] bg-opacity-90 rounded-md shadow-lg fixed z-50 p-2" v-if="notify">
 
     <p class="text-md py-2 px-4">{{ message }}</p>
 
     <button 
-      class="text-3xl py-2 px-4 focus:bg-white duration-300 text-slate-800 rounded-md shadow-md"
+      class="text-3xl"
       @click="handleClick">
       &times;
       </button>
@@ -37,7 +37,7 @@ watch(props,(val)=>{
 const emit = defineEmits(['close'])
 
 const handleClick = ()=> {
-  emit('close')
+  notify.value = false
 }
 </script>
 

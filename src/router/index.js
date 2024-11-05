@@ -85,6 +85,12 @@ const router = createRouter({
       component: () => import('@/views/Notifications.vue'),
       meta: { auth: true }
     },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: () => import('@/views/Payment.vue'),
+      meta: { auth: true }
+    },
   ]
 })
 

@@ -1,8 +1,8 @@
 <template>
   <div class="bg-whit bg-opacity-80 p-4">
-  <h1 class="text-2xl font-bold text-slate-100">Dashboard</h1>
+    <h1 class="text-2xl font-bold text-slate-100">Dashboard</h1>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
+    <div class="max-w-6xl m-auto grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
       <!-- Main Content -->
       <section class="col-span-1 md:col-span-3 space-y-6">
         <!-- Welcome Section -->
@@ -12,8 +12,11 @@
         </div>
 
         <div class="p-4 backdrop-blur-lg bg-white/10 text-white rounded-md flex justify-between shadow-md">
-          <div class="text-lg font-semibold">Smart Coins: <span class="italic font-normal font-mono">{{ user.points }}</span></div> 
-          <button class="bg-[#ef6002] opacity-80 p-2 mt-8 rounded-md text-white">Earn more</button>
+          <div class="text-lg font-semibold">
+            <p class="text-xl pb-2">Wallet</p>
+            <p class="font-normal">&#8358;{{ user.points }}</p>  
+          </div> 
+          <button class="bg-[#ef6002] opacity-80 p-2 mt-8 rounded-md text-white">Top up</button>
         </div>
 
         <!-- Item in carts -->

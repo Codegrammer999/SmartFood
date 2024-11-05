@@ -13,8 +13,7 @@ defineProps({
         required: true
     },
     placeholder: {
-        type: String,
-        required: true
+        type: String
     },
 })
 </script>

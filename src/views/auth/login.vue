@@ -58,7 +58,7 @@
       </form>
     </div>
       <Notify
-      :message="notifyMsg"
+        :message="notifyMsg"
     />
   </div>
 </template>
