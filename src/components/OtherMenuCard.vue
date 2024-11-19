@@ -1,6 +1,6 @@
 <template>
     <!-- Menu Item -->
-    <div class="border border-white text-white bg-opacity-80 bg-[#18082f] text-center rounded-md">
+    <div class="text-white bg-white/10 shadow-lg p-4 text-center rounded-md">
         <div class="flex justify-center">
             <Image 
                 :src="menu.image" 
@@ -11,7 +11,7 @@
 
     <div class="p-4 text-center">
         <h2 class="text-2xl font-bold">{{ menu.name }}</h2>
-        <p class="mt-2 text-gray-700 line-clamp-2">{{ menu.description }}</p>
+        <p class="mt-2 line-clamp-2">{{ menu.description }}</p>
         <div class="mt-4 flex items-center justify-between">
             <span class="text-md text-[#ef6002]">
                 <span class="line-through opacity-70" v-if="menu.priceoff">&#8358;{{ menu.priceoff }}</span> 
@@ -31,17 +31,13 @@
 </template>
 
 <script setup>
-import { useMenuStore } from '@/stores/menu'
 import Image from './Image.vue'
 import { useRouter } from 'vue-router'
-import { ref } from 'vue'
 
-const menuStore = useMenuStore()
 const router = useRouter()
 
 const seeDetails = ()=> {
-    menuStore.menu = props.menu
-    router.push({ name: 'menuDetails', params: { id: props.menu.id }})
+    router.push({ name: 'login'})
 }
 
 const props = defineProps({

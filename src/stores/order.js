@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const useOrderStore = defineStore('orderStore', {
   state: ()=> ({
@@ -27,9 +28,10 @@ export const useOrderStore = defineStore('orderStore', {
 
         async getServerOrders(query){
           try {
-            const res = await fetch('/api/getUserOrders', {
+            const res = await fetch(`${apiUrl}/api/getUserOrders`, {
               method: 'POST',
               headers: {
+                "Accept": 'application/json',
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
               },

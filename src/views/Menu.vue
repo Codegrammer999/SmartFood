@@ -34,10 +34,11 @@
 <script setup>
 import { MenuCard } from "@/asyncComponents"
 import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
-import { onMounted, ref } from 'vue'
+import { onMounted } from 'vue'
 import { useMenus } from "@/composables/UseMenus"
 
 const { menus, currentPage, totalPages, fetchMenus } = useMenus()
+
 onMounted(()=> {
   fetchMenus()
 })

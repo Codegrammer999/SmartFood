@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const useAuthStore = defineStore('authStore', {
   state: ()=> {
@@ -13,10 +14,11 @@ export const useAuthStore = defineStore('authStore', {
     async register(apiRoute, formData) {
      try {
       formData.isProcessing = true
-       const res = await fetch(apiRoute, {
+       const res = await fetch(apiUrl + apiRoute, {
          method: 'POST',
          body: JSON.stringify(formData),
          headers: {
+          "Accept": 'application/json',
            'Content-Type': 'application/json'
          }
        })
@@ -24,6 +26,7 @@ export const useAuthStore = defineStore('authStore', {
        
        if (res.ok && data.success) {
         this.errors = {}
+        localStorage.setItem('Dababy_user_id', data.user_id)
         return true
        }else if (data.errors) {
         this.errors = data.errors
@@ -44,10 +47,11 @@ export const useAuthStore = defineStore('authStore', {
     async login(apiRoute, formData) {
       try {
         formData.isProcessing = true
-        const res = await fetch(apiRoute, {
+        const res = await fetch(apiUrl + apiRoute, {
           method: 'POST',
           body: JSON.stringify(formData),
           headers: {
+            "Accept": 'application/json',
             'Content-Type': 'application/json'
           }
         })
@@ -76,9 +80,10 @@ export const useAuthStore = defineStore('authStore', {
 
     async getUser() {
     try {
-        const res = await fetch('/api/user', {
+        const res = await fetch(`${apiUrl}/api/user`, {
           method: 'GET',
           headers: {
+            "Accept": 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
           }
@@ -99,9 +104,10 @@ export const useAuthStore = defineStore('authStore', {
 
   async logout() {
     try {
-        const res = await fetch('/api/logout', {
+        const res = await fetch(`${apiUrl}/api/logout`, {
           method: 'POST',
           headers: {
+            "Accept": 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
           }

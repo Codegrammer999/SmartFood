@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+const apiUrl = import.meta.env.VITE_API_URL
 
 export const useMenuStore = defineStore('menuStore', {
   state: ()=> {
@@ -9,9 +10,10 @@ export const useMenuStore = defineStore('menuStore', {
   actions: {
     async getSpecificMenu(menuId){
       try {
-        const res = await fetch(`/api/menus/${menuId}`, {
+        const res = await fetch(`${apiUrl}/api/menus/${menuId}`, {
           method: 'GET',
           headers: {
+            "Accept": 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
           },

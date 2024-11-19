@@ -1,8 +1,8 @@
 <template>
   <Transition name="slide">
-    <div class="w-fit flex space-x-2 items-center justify-between right-0 top-2 bg-[#ef6002] bg-opacity-90 rounded-md shadow-lg fixed z-50 p-2" v-if="notify">
+    <div class="w-fit flex space-x-2 items-center justify-between right-0 top-2 bg-[#ef6002] bg-opacity-90 shadow-lg fixed z-50 p-2" v-if="notify">
 
-    <p class="text-md py-2 px-4">{{ message }}</p>
+    <p class="text-sm py-2 px-4">{{ message }}</p>
 
     <button 
       class="text-3xl"

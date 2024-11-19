@@ -1,10 +1,10 @@
 <template>
   <div class="container mx-auto p-4 lg:px-10">
-    <section class="text-center py-8">
-      <h1 class="text-2xl lg:text-4xl font-bold text-[#ef6002]">
+    <section class="text-centr">
+      <h1 class="text-left text-2xl lg:text-2xl font-bold p-2">
         Our Services
       </h1>
-      <p class="text-sm mt-2 opacity-70">
+      <p class="opacity-90 font-semibold">
         Providing delicious and affordable food for everyone, anytime. We ensure every bite feels like a celebration.
       </p>
     </section>
@@ -27,15 +27,16 @@
       />
     </div>
 
-    <section class="flex flex-col items-center lg:flex-row lg:justify-between border-t py-8 mt-8">
+    <section class="flex flex-col bg-white/10 px-4 items-center lg:flex-row lg:justify-between rounded-md py-8">
       <div class="w-full lg:w-1/2 space-y-4">
         <h3 class="text-xl lg:text-2xl font-semibold">
           Affordable Meals, Every Time
         </h3>
-        <p class="text-sm opacity-70">
+        <p class="text-sm opacity-70 font-semibold">
           Our goal is to make quality food accessible to everyone. Whether you're ordering delivery or dining in, we ensure your experience is top-notch without breaking the bank.
         </p>
       </div>
+
       <Image
         src="/images/chef.jpg"
         alt="Our chef team"

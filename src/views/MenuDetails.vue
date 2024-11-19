@@ -60,7 +60,7 @@ const router = useRouter()
 const route = useRoute()
 const nowInCart = ref(false)
 const parentButtons = ref(null)
-const backendUrl = ref(import.meta.env.VITE_BACKEND_URL)
+const backendUrl = ref(import.meta.env.VITE_API_URL)
 const menuId = ref(route.params.id)
 const notifyMsg = ref('')
 
@@ -91,7 +91,6 @@ const addToCart = ()=> {
 </script>
 
 <style scoped>
-/* Optional: Add custom styles for hover effects and transitions */
 .transition-transform {
   transition: transform 0.2s ease;
 }

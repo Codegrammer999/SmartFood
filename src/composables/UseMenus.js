@@ -1,4 +1,5 @@
-import { ref } from "vue";
+import { ref } from "vue"
+const apiUrl = import.meta.env.VITE_API_URL
 
 export function useMenus() {
     const menus = ref([])
@@ -7,9 +8,10 @@ export function useMenus() {
 
     const fetchMenus = async(page = 1) => {
         try {
-            const res = await fetch(`/api/menus?page=${page}`, {
+            const res = await fetch(`${apiUrl}/api/menus?page=${page}`, {
                 method: 'GET',
                 headers: {
+                    "Accept": 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
                 }

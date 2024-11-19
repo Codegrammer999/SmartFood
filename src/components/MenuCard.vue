@@ -3,7 +3,7 @@
     <div class="backdrop-blur-lg bg-white/10 text-white bg-opacity-80 bg-[#18082f] text-center rounded-md">
         <div class="flex justify-center">
             <Image 
-                :src="`${backendUrl + '/storage/' + menu.image}`" 
+                :src="`${import.meta.env.VITE_API_URL + '/storage/' + menu.image}`" 
                 :alt="menu.description"
                 class="w-full h-48 object-cover"
             />
@@ -33,9 +33,7 @@
 
 <script setup>
 import Image from './Image.vue'
-import { ref } from 'vue'
-
-const backendUrl = ref(import.meta.env.VITE_BACKEND_URL)
+import { onMounted, ref } from 'vue'
 
 const props = defineProps({
     menu: {

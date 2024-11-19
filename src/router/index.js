@@ -1,5 +1,6 @@
 import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
+import { showLoading, hideLoading } from "@/composables/UseLoading"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,16 +87,38 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
+      path: '/register/payment',
+      name: 'TransferPayment',
+      component: () => import('@/views/auth/registration-payment.vue')
+    },
+    {
+      path: '/register/payment',
+      name: 'CouponPayment',
+      component: () => import('@/views/auth/coupon-payment.vue')
+    },
+    {
+      path: '/register/payment/confirm',
+      name: 'WaitingPaymentConfirmation',
+      component: () => import('@/views/auth/waiting-payment-confirmation.vue')
+    },
+    {
       path: '/payment',
       name: 'payment',
       component: () => import('@/views/Payment.vue'),
       meta: { auth: true }
     },
+    {
+      path: '/:catchAll(.*)',
+      name: '404',
+      component: () => import('@/views/404.vue')
+    },
   ]
 })
 
 router.beforeEach(async (to, from, next) => {
+  showLoading()
   const authStore = useAuthStore()
+
   if (authStore.isFetchingUser) {
     await authStore.getUser()
   }
@@ -107,6 +130,10 @@ router.beforeEach(async (to, from, next) => {
   }else {
     next()
   }
+})
+
+router.afterEach(()=> {
+  hideLoading()
 })
 
 export default router

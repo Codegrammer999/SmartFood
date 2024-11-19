@@ -5,7 +5,7 @@
                 <Image
                     src="/images/logo.jpg"
                     alt="Our Logo"
-                    class="size-16 rounded-full"
+                    class="size-12 rounded-full"
                 />
                 <p class="text-xl font-extrabold"><span class="text-[#ef6002]">Smart</span> Food</p>
             </div>
@@ -48,14 +48,14 @@
         </nav>
 
         <nav class="w-full" v-else>
-            <div class="flex justify-between p-4" v-if="authStore.user">
+            <div class="flex justify-between p-4">
                 <div class="flex space-x-4 items-center">
-                    <ArrowLeftEndOnRectangleIcon class="size-8" @click="$router.go(-1)"/>
-                    <h1 class="text-[20px] font-semibold"><span class="text-[#ef6002]">Smart</span>Food</h1>
+                    <ArrowLeftEndOnRectangleIcon class="size-8" @click="$router.back()"/>
+                    <h1 class="text-[20px] font-semibold" v-if="authStore.user"><span class="text-[#ef6002]">Smart</span>Food</h1>
                 </div>
                 <button
                     v-if="mobileNavIsHidden"
-                    @click="toggleMobileNav" 
+                    @click="toggleMobileNav"
                     class="block md:hidden bg-white text-[#ef6002] p-2 rounded focus:outline-none z-30">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -148,8 +148,7 @@ import { computed, ref } from 'vue'
 import Image from './Image.vue'
 import { useAuthStore } from '@/stores/auth'
 import { 
-        Squares2X2Icon, 
-        Bars3Icon, 
+        Squares2X2Icon,  
         ClipboardDocumentListIcon, 
         Cog6ToothIcon, 
         HomeIcon, 

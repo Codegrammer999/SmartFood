@@ -70,7 +70,7 @@ import { useOrderStore } from '@/stores/order'
 import { onMounted, ref } from 'vue'
 
 const orderStore = useOrderStore()
-const filter = ref('pending')
+const filter = ref('all')
 
 onMounted(() => {
   orderStore.clearLocalOrders()

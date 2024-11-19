@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center h-screen">
+  <div class="flex items-center justify-center p-2 pt-4">
     <div class="backdrop-blur-lg bg-white/10 p-6 rounded-lg shadow-lg max-w-sm md:max-w-lg lg:max-w-2xl w-full">
       
       <h1 class="text-3xl font-extrabold text-center mb-2"><span class="text-[#ef6002]">Smart</span>Food</h1>
@@ -14,11 +14,23 @@
             v-model="formData.name"
             type="text"
             class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
-            placeholder="Full Name"
+            placeholder="Name"
             required
           />
           <ParagraphError :error="formData.error.name"/>
           <ParagraphError :error="errors.name[0]" v-if="errors.name"/>
+        </div>
+
+        <div ref="usernameParent">
+          <input
+            v-model="formData.username"
+            type="text"
+            class="w-full px-4 py-3 rounded-lg bg-white/20 text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-[#ef6002]"
+            placeholder="Username"
+            required
+          />
+          <ParagraphError :error="formData.error.username"/>
+          <ParagraphError :error="errors.username[0]" v-if="errors.username"/>
         </div>
 
         <!-- Email -->
@@ -58,6 +70,14 @@
           />
         </div>
 
+        <div>
+          <select required class="w-full p-4 bg-white/10 rounded" v-model="formData.paymentMethod">
+            <option value="">Payment method</option>
+            <option value="transfer">Bank Transfer</option>
+            <option value="coupon">Code</option>
+          </select>
+        </div>
+
         <!-- Referral ID -->
         <div ref="refParent">
           <input
@@ -76,8 +96,7 @@
             v-else
             type="submit"
             class="w-full bg-[#ef6002] hover:bg-[#d45602] text-white font-semibold py-3 rounded-lg transition duration-300"
-            :disabled="formData.isProcessing"
-          >
+            :disabled="formData.isProcessing">
             Register
           </button>
         </div>
@@ -114,17 +133,19 @@ const notifyMsg = ref('')
 const router = useRouter()
 
 onMounted(() => {
-    errors.value = {}
+  errors.value = {}
 })
 
 let formData = reactive({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: '',
-    referral_id: '',
-    isProcessing: false,
-    error: {}
+  name: '',
+  username: '',
+  email: '',
+  password: '',
+  password_confirmation: '',
+  referral_id: '',
+  paymentMethod: '',
+  isProcessing: false,
+  error: {}
 })
 
 const { register: registerStore } = useAuthStore()
@@ -132,12 +153,19 @@ let { errors } = storeToRefs(useAuthStore())
 
 const register = async() => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
     switch (true) {
         case formData.name === '':
             formData.error.name = 'Name field is required'
             break
         case formData.name.length < 6:
             formData.error.name = 'Name must be at least 6 characters'
+            break
+        case formData.username === '':
+            formData.error.username = 'Username field is required'
+            break
+        case formData.username.length < 6:
+            formData.error.username = 'Username must be at least 6 characters'
             break
         case formData.email === '':
             formData.error.email = 'Email field is required'
@@ -157,7 +185,18 @@ const register = async() => {
           const res = await registerStore('/api/register', formData)
           
           if (res) {
-            notifyMsg.value = 'Registration Success. Redirecting to login...'
+            notifyMsg.value = `Welcome, ${formData.name.slice(0, 20)}...`
+
+            setTimeout(() => {
+              notifyMsg.value = ''
+            }, 2000)
+
+              if (formData.paymentMethod === 'transfer') {
+                router.push({name: 'TransferPayment'})
+              }else {
+                router.push({name: 'CouponPayment'})
+              }
+
             formData = {
                 name: '',
                 email: '',
@@ -166,10 +205,7 @@ const register = async() => {
                 referral_id: '',
                 error: {}
             }
-            setTimeout(() => {
-              notifyMsg.value = ''
-              router.push({name: 'login'})
-            }, 2000)
+
           }else {
              notifyMsg.value = 'Registration Error!'
              formData.password = ''

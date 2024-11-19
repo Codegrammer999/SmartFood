@@ -48,6 +48,8 @@
         <p>Sign out</p>
       </div>
     </div>
+
+    <Notify :message="notifyMsg"/>
   </div>
 </template>
 
@@ -60,12 +62,16 @@ import {
     ArrowLeftEndOnRectangleIcon 
     } from '@heroicons/vue/24/solid'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import Notify from '@/components/Notify.vue'
 
 const authStore = useAuthStore()
 const user = authStore.user
 const username = ref('')
 const currentPassword = ref('')
 const newPassword = ref('')
+const router = useRouter()
+const notifyMsg = ref('')
 
 const updateUsername = async () => {
   try {
@@ -101,7 +107,14 @@ const deleteAccount = async () => {
 }
 
 const logoutUser = async() => {
-  await authStore.logout()
+  const res = await authStore.logout()
+
+  if (res) {
+    router.push({name: 'login'})
+  }else {
+    notifyMsg.value = 'Something went wrong!'
+    setTimeout(() => { notifyMsg.value = '' }, 4000)
+  }
 }
 
 const copied = ref(false)
