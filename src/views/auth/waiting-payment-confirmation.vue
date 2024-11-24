@@ -1,6 +1,6 @@
 <template>
     <div>
-        
+        please wait for admin confrimation
     </div>
 </template>
 

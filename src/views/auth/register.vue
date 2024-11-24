@@ -71,8 +71,8 @@
         </div>
 
         <div>
-          <select required class="w-full p-4 bg-white/10 rounded" v-model="formData.paymentMethod">
-            <option value="">Payment method</option>
+          <select required class="w-full p-4 bg-white/20 focus:text-slate-800 focus:outline-none rounded" v-model="formData.paymentMethod">
+            <option value="">Select payment method</option>
             <option value="transfer">Bank Transfer</option>
             <option value="coupon">Code</option>
           </select>

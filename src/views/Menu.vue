@@ -1,31 +1,35 @@
 <template>
-<div class="bg-[#18082f] text-white">
-
-  <div class="max-w-6xl mx-auto p-4">
-    <!-- Header -->
-    <div class="text-cente mb-4">
-      <h1 class="text-3xl font-semibold">Our Menu</h1>
-      <p class="mt-2 text-lg text-gray-300">Discover your favorite meals!</p>
+<div>
+  <div class="flex flex-col items-center w-full p-4 pt-0 sm:p-6">
+    <div class="flex justify-between items-center w-full max-w-7xl">
+	 <div class="text-cente mb-4">
+      <h1 class="text-3xl font-semibold">Our Store</h1>
+      <p class="mt-2 text-lg text-gray-300">Discover your favorite groceries!</p>
+    </div>
     </div>
 
-    <div class="flex justify-center items-center pb-4 p-2 space-x-2">
-      <input 
-        type="text"
-        class="w-full py-3 px-4 text-slate-800 focus:outline-none duration-500 rounded-md"
-        placeholder="Search by category"
-      >
-      <div class="bg-[#ef6002] py-2 px-2 duration-300 rounded-md">
-        <MagnifyingGlassIcon class="size-8"/>
+	  <div class="flex justify-center overflow-y-auto items-center pb-4 p-2 space-x-2">
+	<button>All</button>
+	<button>Drinks</button>
+	<button>Cooked Foods</button>
+<button>All</button>
+	<button>Drinks</button>
+	<button>Cooked Foods</button>
+<button>All</button>
+	<button>Drinks</button>
+	<button>Cooked Foods</button>
+    </div>
+    
+    <!-- Centered container with grid layout -->
+    <div class="flex justify-center w-full">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-4 w-full">
+        <MenuCard v-for="item in menus" :key="item.id" :menu="item" />
       </div>
     </div>
 
-    <!-- Menu Grid -->
-    <div class="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <MenuCard 
-            v-for="item in menus"
-            :key="item.id"
-            :menu="item"
-        />
+    <!-- Show if no products are available -->
+    <div v-if="!menus.length" class="p-8 text-xl opacity-70 text-center">
+      No products available!
     </div>
   </div>
 </div>

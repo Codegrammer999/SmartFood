@@ -31,7 +31,8 @@
         && !($route.name === 'RegistrationPayment')
         && !($route.name === 'CouponPayment')
         && !($route.name === 'WaitingPaymentConfirmation')
-        && !($route.name === '404')"
+        && !($route.name === '404')
+        && !($route.name === 'PaymentOption')"
         v-if="!authStore.isFetchingUser && !authStore.user"
       />
     </div>

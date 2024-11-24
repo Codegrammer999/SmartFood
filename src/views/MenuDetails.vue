@@ -1,22 +1,26 @@
 <template>
-  <div class="flex flex-col items-center justify-center">
-    <div class="max-w-6xl mx-auto p-4 md:p-6 lg:p-8">
-      <div class="bg-white text-[#18082f] rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105">
-        <Image 
-          :src="`${backendUrl + '/storage/' + menuStore.menu.image}`" 
-          :alt="menuStore.menu.category" 
-          class="w-full h-64 md:h-48 object-cover"
-        />
+  <div v-if="menuStore.menu" class="px-2">
+  <div class="max-w-xl mx-auto p-6 rounded-lg shadow-md bg-white/20">
+    <!-- Product Image -->
+    <div v-if="menuStore.menu.image" class="h-64 w-full overflow-hidden rounded-md mb-4">
+      <img 
+        :src="`${url + '/storage/' + menuStore.menu.image}`" 
+        :alt="menuStore.menu.description" 
+        class="w-full h-full object-cover"
+      />
+    </div>
+    
+    <div v-else class="h-64 w-full overflow-hidden rounded-md mb-4 bg-gray-200 flex items-center justify-center">
+      <p class="text-gray-500">No Image Available</p>
+    </div>
 
-        <div class="p-4 md:p-6">
-          <h2 class="text-xl md:text-2xl font-bold">{{ menuStore.menu.name }}</h2>
-          <p class="mt-2 text-gray-700">{{ menuStore.menu.description }}</p>
-          <div class="mt-4 flex flex-col md:flex-row items-center justify-between">
-            <span class="text-xl font-semibold text-[#ef6002]">&#8358;{{ menuStore.menu.price }}</span>
-            <span class="bg-[#ef6002] text-white px-3 py-1 rounded-full text-sm mt-2 md:mt-0">{{ menuStore.menu.category }}</span>
-          </div>
+    <!-- Product Details -->
+    <h2 class="text-2xl font-semibold mb-2">{{ menuStore.menu.name }}</h2>
+    <p class="text-sm mb-4">Category: {{ menuStore.menu.category }}</p>
+    <p class="text-md mb-6">{{ menuStore.menu.description }}</p>
+    <p class="text-lg font-semibold text-[#ef6002] mb-2">&#8358;{{ menuStore.menu.price }}</p>
 
-          <div ref="parentButtons" class="mt-4">
+   <div ref="parentButtons" class="mt-4">
             <button
               v-if="addedToCart"
               @click="addToCart" 
@@ -34,13 +38,11 @@
               Add to Cart
             </button>
           </div>
-        </div>
-      </div>
-    </div>
-    <Notify
+  </div>
+  <Notify
       :message="notifyMsg"
     />
-  </div>
+</div>
 </template>
 
 <script setup>
@@ -60,7 +62,7 @@ const router = useRouter()
 const route = useRoute()
 const nowInCart = ref(false)
 const parentButtons = ref(null)
-const backendUrl = ref(import.meta.env.VITE_API_URL)
+const url = ref(import.meta.env.VITE_API_URL)
 const menuId = ref(route.params.id)
 const notifyMsg = ref('')
 

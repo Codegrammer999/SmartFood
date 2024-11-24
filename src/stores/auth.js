@@ -1,4 +1,6 @@
+import router from '@/router'
 import { defineStore } from 'pinia'
+
 const apiUrl = import.meta.env.VITE_API_URL
 
 export const useAuthStore = defineStore('authStore', {
@@ -19,7 +21,7 @@ export const useAuthStore = defineStore('authStore', {
          body: JSON.stringify(formData),
          headers: {
           "Accept": 'application/json',
-           'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
          }
        })
        const data = await res.json()
@@ -60,13 +62,16 @@ export const useAuthStore = defineStore('authStore', {
         if (res.ok && data.token) {
           this.user = data.user
           this.errors = {}
-         localStorage.setItem('Dababy_token', data.token)
-         return true
+          localStorage.setItem('Dababy_token', data.token)
+          return true
         }else if (data.errors) {
          this.errors = data.errors
          return false
         }else if (data.message && !data.success) {
           this.errors = data
+          return false
+        }else if (data.status === 'Unconfirmed') {
+          router.push({ name: 'PaymentOption'})
           return false
         }
  
@@ -91,7 +96,7 @@ export const useAuthStore = defineStore('authStore', {
 
         const data = await res.json()
 
-        if (res.ok) {
+        if (res.ok && data.email) {
           this.user = data
         }        
     } catch (error) {

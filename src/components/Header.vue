@@ -48,7 +48,7 @@
         </nav>
 
         <nav class="w-full" v-else>
-            <div class="flex justify-between p-4">
+            <div class="flex justify-between p-4 border-b border-white/80">
                 <div class="flex space-x-4 items-center">
                     <ArrowLeftEndOnRectangleIcon class="size-8" @click="$router.back()"/>
                     <h1 class="text-[20px] font-semibold" v-if="authStore.user"><span class="text-[#ef6002]">Smart</span>Food</h1>
@@ -91,6 +91,12 @@
                             :to="{ name: 'orders' }"
                             class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
                             <span class="mx-1">Orders</span> <ClipboardDocumentListIcon class="size-6"/>
+                        </router-link>
+
+                        <router-link
+                            :to="{ name: 'codes' }"
+                            class="w-full flex items-center justify-center text-center px-2 py-3 bg-white text-slate-800 rounded-md duration-300">
+                            <span class="mx-1">Codes</span> <CurrencyDollarIcon class="size-6"/>
                         </router-link>
 
                         <router-link
@@ -159,7 +165,8 @@ import {
         ArrowLeftEndOnRectangleIcon,
         UserPlusIcon,
         BriefcaseIcon,
-        ArrowRightStartOnRectangleIcon
+        ArrowRightStartOnRectangleIcon,
+        CurrencyDollarIcon
     } from '@heroicons/vue/24/solid'
 
 const authStore = useAuthStore()

@@ -4,11 +4,12 @@
 
         <div class="flex flex-col items-center p-4">
             <p>47489393394849333</p>
+            <p>Amount: &#8358;5000</p>
             <p>Bank name</p>
             <p>Account name</p>
         </div>
 
-        <form @submit.prevent="sendOrder">
+        <form @submit.prevent="purchaseCode">
             <p class="text-center p-2">Send a screenshot of your payment.</p>
 
             <div class="flex flex-col items-center gap-4" ref="parent">
@@ -49,13 +50,10 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue"
 import Notify from '@/components/Notify.vue'
-import { useOrderStore } from "@/stores/order"
 import autoAnimate from "@formkit/auto-animate"
 import LoadingButton from "@/components/LoadingButton.vue"
 import { useRouter } from "vue-router"
 
-const orderStore = useOrderStore()
-orderStore.loadOrders()
 const fileInput  = ref(null)
 const notifyMsg = ref('')
 const parent = ref(null)
@@ -67,14 +65,12 @@ const selectFile = ()=> {
 
 let form = reactive({
     payment_receipt: '',
-    orders: null,
     isProcessing: false,
     errors: {}
 })
 
 onMounted(()=> {
     parent.value && autoAnimate(parent.value)
-    form.orders = orderStore.orders
 })
 
 const getFile = (e)=> {
@@ -86,7 +82,7 @@ const getFile = (e)=> {
     }
 }
 
-const sendOrder = async () => {
+const purchaseCode = async () => {
     if (form.payment_receipt === '') {
         notifyMsg.value = 'Please select your payment screenshot.'
         setTimeout(() => { notifyMsg.value = '' }, 4000)
@@ -96,10 +92,7 @@ const sendOrder = async () => {
     try {
         form.isProcessing = true
 
-        notifyMsg.value = 'Processing order...'
-        setTimeout(() => { notifyMsg.value = '' }, 2000)
-
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/make-order`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/code/create`, {
             method: 'POST',
             headers: {
 		        'Content-type': 'application/json',
@@ -112,19 +105,21 @@ const sendOrder = async () => {
         const data = await res.json()
         
         if (res.ok && data.success) {
-            notifyMsg.value = 'Order received.'
+            notifyMsg.value = data.message
+
             form = {
                     payment_receipt: '',
-                    orders: null,
                     errors: {}
                 }
-            router.push({ name: 'orders'})  
+            router.push({ name: 'codes'})  
         }else if (data.errors) {
             form.errors = data.errors
+        }else if (data.message && !data.success) {
+            notifyMsg.value = data.message
         }
         
     } catch (error) {
-        console.log('Error making order', error)
+        notifyMsg.value = error
     }finally {
         form.isProcessing = false
         setTimeout(() => { notifyMsg.value = '' }, 4000)

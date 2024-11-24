@@ -87,12 +87,24 @@ const router = createRouter({
       meta: { auth: true }
     },
     {
-      path: '/register/payment',
-      name: 'TransferPayment',
-      component: () => import('@/views/auth/registration-payment.vue')
+      path: '/codes',
+      name: 'codes',
+      component: () => import('@/views/Codes.vue'),
+      meta: { auth: true }
     },
     {
-      path: '/register/payment',
+      path: '/code/purchase',
+      name: 'PurchaseCode',
+      component: () => import('@/views/CodePurchase.vue'),
+      meta: { auth: true }
+    },
+    {
+      path: '/register/payment/transfer',
+      name: 'TransferPayment',
+      component: () => import('@/views/auth/transfer-payment.vue')
+    },
+    {
+      path: '/register/payment/code',
       name: 'CouponPayment',
       component: () => import('@/views/auth/coupon-payment.vue')
     },
@@ -106,6 +118,11 @@ const router = createRouter({
       name: 'payment',
       component: () => import('@/views/Payment.vue'),
       meta: { auth: true }
+    },
+    {
+      path: '/payment/option',
+      name: 'PaymentOption',
+      component: () => import('@/views/auth/payment-option.vue')
     },
     {
       path: '/:catchAll(.*)',

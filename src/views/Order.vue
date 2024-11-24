@@ -25,7 +25,7 @@
             <div class="flex justify-between items-center">
               <div>
                 <p class="text-sm text-gray-400">
-                  Placed on: {{ order.created_at.slice(0, 10) }} / {{ order.created_at.slice(11, 19) }}
+                  Placed on: {{ order.created_at.slice(0, 10) }}
                 </p>
               </div>
               <span 
