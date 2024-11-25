@@ -1,9 +1,13 @@
 import { defineAsyncComponent } from "vue"
 import LoadingMenuCard from "@/components/LoadingMenuCard.vue"
+import LoadingCodeCard from "@/components/LoadingCodeCard.vue"
 
 export const MenuCard = defineAsyncComponent({
     loader: ()=> import('@/components/MenuCard.vue'),
-    loadingComponent: LoadingMenuCard,
-    delay: 3000,
-    timeout: 20000
+    loadingComponent: LoadingMenuCard
+})
+
+export const CodeCard = defineAsyncComponent({
+    loader: ()=> import('@/components/CodeCard.vue'),
+    loadingComponent: LoadingCodeCard
 })

@@ -5,8 +5,7 @@
             src="/images/logo.jpg"
             alt="Our Logo"
             loading="lazy"
-            class="size-20 rounded-full"
-        >
+            class="size-20 rounded-full">
 
         <p class="text-center text-lg">Make your registration payment to the account details below.</p>
 
@@ -34,8 +33,7 @@
                         type="file"
                         ref="fileInput"
                         class="hidden"
-                        @change="getFile"
-                    >
+                        @change="getFile">
                 </button>
 
                 <p v-if="form.errors.payment_receipt" class="opacity-90 text-sm text-red-600">{{ form.errors.payment_receipt[0] }}</p>
@@ -103,9 +101,6 @@ const sendOrder = async () => {
     try {
         form.isProcessing = true
 
-        notifyMsg.value = 'Processing...'
-        setTimeout(() => { notifyMsg.value = '' }, 2000)
-
         const res = await fetch(`${import.meta.env.VITE_API_URL}/api/submit-payment`, {
             method: 'POST',
             headers: {
@@ -128,13 +123,15 @@ const sendOrder = async () => {
             router.push({ name: 'WaitingPaymentConfirmation'})
         }else if (data.errors) {
             form.errors = data.errors
+        }else if (data.message && !data.success) {
+            notifyMsg.value = data.message
         }
         
     } catch (error) {
-        console.log('Something went wrong!', error)
+        notifyMsg.value = error
     }finally {
         form.isProcessing = false
-        setTimeout(() => { notifyMsg.value = '' }, 4000)
+        setTimeout(() => { notifyMsg.value = '' }, 5000)
     }
 }
 </script>

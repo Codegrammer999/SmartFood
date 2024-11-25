@@ -6,20 +6,25 @@ export function useMenus() {
     const currentPage = ref(1)
     const totalPages = ref(1)
 
-    const fetchMenus = async(page = 1) => {
+    const fetchMenus = async(category) => {
         try {
-            const res = await fetch(`${apiUrl}/api/menus?page=${page}`, {
-                method: 'GET',
+            const res = await fetch(`${apiUrl}/api/menus`, {
+                method: 'POST',
                 headers: {
                     "Accept": 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('Dababy_token')}`
-                }
+                },
+                body: JSON.stringify({ category: category })
             })
             const data = await res.json()
-            menus.value = data.data
-            currentPage.value = data.current_page
-            totalPages.value = data.last_page
+
+            if (res.ok && res.status === 200) {
+                menus.value = data.data
+                currentPage.value = data.current_page
+                totalPages.value = data.last_page
+            }
+        
         } catch (error) {
             console.error('Error fetching menus:', error)
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto p-4 space-y-2">
-        <section class="bg-white/5 p-2 rounded-md shadow-md w-fit">
+        <section class="bg-[#311952c4] p-2 rounded-md shadow-md w-fit">
             <div class="px-4 pt-2 lg:px-10 flex flex-conl flex-row justify-between items-center gap-4">
                 <div class="w-full lg:w-1/2">
                     <h1 class="text-xl lg:text-3xl font-bold">
@@ -21,14 +21,14 @@
             </div>
         </section>
 
-        <section class="text-center space-y-4 bg-white/5 p-2 rounded-md shadow-md">
+        <section class="text-center space-y-4 bg-[#311952c4] p-2 rounded-md shadow-md">
             <h2 class="text-2xl font-semibold">About Us</h2>
             <p class="text-gray-200 max-w-3xl mx-auto lg:text-lg">
                 We are passionate about bringing delicious, affordable, and convenient food options to our community. From savory dishes to sweet treats, our mission is to satisfy your taste buds with the best flavors.
             </p>
         </section>
 
-        <section class="bg-white/5 p-2 rounded-md shadow-md">
+        <section class="bg-[#311952c4] p-2 rounded-md shadow-md">
             <div class="py-6">
                 <h3 class="text-2xl font-semibold pb-8 text-center">Popular Dishes</h3>
                 
@@ -42,7 +42,7 @@
             </div>
         </section>
 
-        <section class="bg-white/5 p-4 rounded-md shadow-md">
+        <section class="bg-[#311952c4] p-4 rounded-md shadow-md">
             <div class="flex flex-col bg-white/10 md:flex-row items-center justify-between py-6 px-2 lg:px-10 shadow-md rounded-lg gap-4">
                 <div class="w-full md:w-1/2 space-y-2">
                     <h4 class="text-xl font-semibold">We Have The Best Chef Team.</h4>
@@ -57,7 +57,7 @@
             </div>
         </section>
 
-        <section class="space-y-4 bg-white/5 p-2 rounded-md">
+        <section class="space-y-4 bg-[#311952c4] p-2 rounded-md">
             <!-- Our Story -->
             <div class="text-center space-y-4 shadow-lg bg-white/10 p-4">
                 <h3 class="text-2xl font-semibold">Our Story</h3>

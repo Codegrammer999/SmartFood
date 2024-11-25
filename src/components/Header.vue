@@ -51,7 +51,7 @@
             <div class="flex justify-between p-4 border-b border-white/80">
                 <div class="flex space-x-4 items-center">
                     <ArrowLeftEndOnRectangleIcon class="size-8" @click="$router.back()"/>
-                    <h1 class="text-[20px] font-semibold" v-if="authStore.user"><span class="text-[#ef6002]">Smart</span>Food</h1>
+                    <h1 class="text-[20px] font-semibold"><span class="text-[#ef6002]">Smart</span>Food</h1>
                 </div>
                 <button
                     v-if="mobileNavIsHidden"

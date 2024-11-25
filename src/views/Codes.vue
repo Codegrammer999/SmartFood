@@ -3,7 +3,7 @@
         <div class="flex justify-between items-baseline p-4">
             <h2 class="font-semibold text-2xl">Your codes</h2>
             
-            <router-link v-if="!codes.length === 5" :to="{ name: 'PurchaseCode'}" class="px-4 py-2 rounded bg-[#ef6002]">Buy</router-link>
+            <router-link v-if="codes.length < 6" :to="{ name: 'PurchaseCode'}" class="px-4 py-2 rounded bg-[#ef6002]">Buy</router-link>
         </div>
 
         <div class="pb-8 px-4 sm:px-6 lg:px-8">
@@ -22,9 +22,9 @@
 </template>
 
 <script setup>
-import CodeCard from '@/components/CodeCard.vue'
 import Notify from '@/components/Notify.vue'
 import { onMounted, ref } from 'vue'
+import { CodeCard } from "@/asyncComponents"
 
 const codes = ref([])
 const notifyMsg = ref('')

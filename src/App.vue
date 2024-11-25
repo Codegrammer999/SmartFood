@@ -28,7 +28,7 @@
     <FooterView 
         v-show="!($route.name === 'register')
         && !($route.name === 'login')
-        && !($route.name === 'RegistrationPayment')
+        && !($route.name === 'TransferPayment')
         && !($route.name === 'CouponPayment')
         && !($route.name === 'WaitingPaymentConfirmation')
         && !($route.name === '404')

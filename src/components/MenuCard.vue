@@ -1,5 +1,5 @@
 <template>
-<div class="max-w-xs p-4 rounded-lg shadow-md bg-white/10">
+<div class="max-w-xs p-4 rounded-lg shadow-md bg-[#311952c4]">
     
     <div v-if="menu.image" class="h-64 w-full overflow-hidden rounded-md mb-4">
       <img

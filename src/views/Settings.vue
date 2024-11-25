@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-[#18082f] text-white p-4">
+  <div class="p-4">
     <h1 class="text-xl font-semibold text-white pb-2">Account Settings</h1>
 
     <!-- Main Content -->
     <div class="max-w-4xl mx-auto space-y-6">
       <!-- User Info -->
-      <section class="backdrop-blur-lg bg-white/10 text-white text-opacity-90 p-4 rounded">
+      <section class="backdrop-blur-lg bg-[#311952c4] text-white text-opacity-90 p-4 rounded">
         <h2 class="text-xl font-semibold mb-6">Your Information</h2>
         <div class="space-y-2">
           <p><span class="font-bold">Name:</span> {{ user.name }}</p>
@@ -19,7 +19,7 @@
         </div>
       </section>
 
-      <section class="backdrop-blur-lg bg-white/10 text-white text-opacity-90 p-4 rounded">
+      <section class="backdrop-blur-lg bg-[#311952c4] text-white text-opacity-90 p-4 rounded">
         <h2 class="text-xl font-semibold mb-6">Change Password</h2>
         <form @submit.prevent="updatePassword" class="space-y-4">
           <div>
@@ -43,7 +43,7 @@
         </form>
       </section>
 
-      <div class="bg-white opacity-80 text-slate-800 p-2 flex items-center justify-center w-fit rounded" @click="logoutUser">
+      <div class="bg-white opacity-80 text-slate-800 cursor-pointer hover:bg-white/60 p-2 flex items-center justify-center w-fit rounded" @click="logoutUser">
         <ArrowLeftEndOnRectangleIcon class="size-8"/>
         <p>Sign out</p>
       </div>

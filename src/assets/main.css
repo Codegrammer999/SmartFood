@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
+html, .groceries-category {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }

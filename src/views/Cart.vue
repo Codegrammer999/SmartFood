@@ -3,7 +3,7 @@
 <div class="bg-[#18082f] text-white flex flex-col justify-between relative" :class="{ 'opacity-30': approveModal }">
   <!-- Cart Items Section -->
   <div class="p-4" ref="parent">
-    <h1 class="text-3xl font-bold mb-6 text-cente text-slate-200" v-if="cartStore.cartItems.length">Your Cart</h1>
+    <h1 class="text-2xl font-bold mb-6 text-cente text-slate-200" v-if="cartStore.cartItems.length">Your Cart</h1>
 
     <!-- Cart Item -->
     <div class="space-y-4" v-if="cartStore.cartItems.length">

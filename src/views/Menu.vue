@@ -1,23 +1,45 @@
 <template>
-<div>
-  <div class="flex flex-col items-center w-full p-4 pt-0 sm:p-6">
-    <div class="flex justify-between items-center w-full max-w-7xl">
-	 <div class="text-cente mb-4">
-      <h1 class="text-3xl font-semibold">Our Store</h1>
-      <p class="mt-2 text-lg text-gray-300">Discover your favorite groceries!</p>
-    </div>
-    </div>
+  <div class="flex flex-col w-full p-2 sm:p-6">
+      <div class="mb-2 p-2">
+        <h1 class="text-2xl font-semibold">Our Store</h1>
+        <p class="mt-2 text-sm font-semibold text-gray-300">Discover your favorite groceries!</p>
+      </div>
 
-	  <div class="flex justify-center overflow-y-auto items-center pb-4 p-2 space-x-2">
-	<button>All</button>
-	<button>Drinks</button>
-	<button>Cooked Foods</button>
-<button>All</button>
-	<button>Drinks</button>
-	<button>Cooked Foods</button>
-<button>All</button>
-	<button>Drinks</button>
-	<button>Cooked Foods</button>
+	  <div class="flex font-semibold text-sm items-center pb-2 overflow-y-hidden groceries-category space-x-2">
+      <button 
+        :class="category === 'all' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' " @click="changeCategory('all')">
+        All
+      </button>
+      <button 
+        @click="changeCategory('fruits')" 
+        :class="category === 'fruits' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' ">
+        Fruits
+      </button>
+      <button 
+        @click="changeCategory('drinks')" 
+        :class="category === 'drinks' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' ">
+        Drinks
+      </button>
+      <button 
+        @click="changeCategory('cooked')" 
+        :class="category === 'cooked' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' ">
+        Cooked
+      </button>
+      <button 
+        @click="changeCategory('raw')" 
+        :class="category === 'raw' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' ">
+        Raw
+      </button>
+      <button 
+        @click="changeCategory('frozen')" 
+        :class="category === 'frozen' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' ">
+        Frozen
+      </button>
+      <button 
+        @click="changeCategory('vegetables')" 
+        :class="category === 'vegetables' ? 'p-2 rounded-md bg-[#ef6002] duration-300' : 'p-2 rounded-md bg-white/20 duration-300' ">
+        Vegetables
+      </button>
     </div>
     
     <!-- Centered container with grid layout -->
@@ -29,21 +51,30 @@
 
     <!-- Show if no products are available -->
     <div v-if="!menus.length" class="p-8 text-xl opacity-70 text-center">
-      No products available!
+      No groceries available!
     </div>
   </div>
-</div>
 </template>
 
 <script setup>
 import { MenuCard } from "@/asyncComponents"
-import { MagnifyingGlassIcon } from '@heroicons/vue/24/solid'
-import { onMounted } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useMenus } from "@/composables/UseMenus"
 
 const { menus, currentPage, totalPages, fetchMenus } = useMenus()
+const category = ref('all')
+
+const changeCategory = (query) => {
+  category.value = query
+}
+
+watch(category,(val)=> {
+  if (val) {
+    fetchMenus(val)
+  }
+})
 
 onMounted(()=> {
-  fetchMenus()
+  fetchMenus(category.value)
 })
 </script>

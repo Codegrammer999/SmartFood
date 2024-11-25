@@ -10,7 +10,7 @@
                 class="w-full p-2 text-slate-700 placeholder:text-center rounded-sm focus:outline-none"
                 v-model="form.code"
             >
-            <ParagraphError />
+            <ParagraphError :error="form.error"/>
             <LoadingButton v-if="form.isProcessing"/>
             <button v-else class="px-4 py-2 bg-[#ef6002] hover:bg-[#d45602] rounded-md focus:outline-none">Send</button>
         </form>
@@ -61,6 +61,7 @@ const checkCode = async () => {
             }
         
             if (data.message && !data.success) {
+                form.error = data.message
                 notifyMsg.value = data.message
             }
     } catch (error) {
