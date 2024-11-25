@@ -13,8 +13,8 @@
         <div class="p-4 backdrop-blur-lg bg-white/10 rounded-md flex flex-col shadow-md">
           <div class="text-md">
             <p class="text-xl font-semibold pb-2">Wallet</p>
-            <p class="font-thin">Main: &#8358;{{ user.mainWallet ?? 0.00 }}</p>
-	          <p class="font-thin">Bonus: &#8358;{{ user.bonusWallet ?? 0.00 }}</p>
+            <p class="font-semibold">Main: &#8358;{{ user.mainWallet ?? 0.00 }}</p>
+	          <p class="semibold">Bonus: &#8358;{{ user.bonusWallet ?? 0.00 }}</p>
           </div> 
           <button @click="$router.push({ name: 'payment'})" class="bg-[#ef6002] p-2 mt-4 rounded-md">Top up</button>
         </div>
@@ -22,9 +22,9 @@
         <div class="p-4 backdrop-blur-lg bg-white/10 rounded-md flex flex-col shadow-md">
           <div class="text-md">
             <p class="text-xl font-semibold pb-2">Purchased codes</p>
-            <p class="font-thin">Available: {{ user.total_codes ?? 0 }}</p>
-	          <p class="font-thin">Total codes used: {{ user.used_codes ?? 0 }}</p>
-	          <p class="font-thin text-sm text-center pt-2">Maximum purchasable codes: 5</p>
+            <p class="font-semibold">Available: {{ user.total_codes ?? 0 }}</p>
+	          <p class="font-semibold">Total codes used: {{ user.used_codes ?? 0 }}</p>
+	          <p class="font-semibold text-sm text-center pt-2">Maximum purchasable codes: 5</p>
           </div> 
         </div>
 
