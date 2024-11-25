@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col w-full p-2 sm:p-6">
       <div class="mb-2 p-2">
-        <h1 class="text-2xl font-semibold">Our Store</h1>
-        <p class="mt-2 text-sm font-semibold text-gray-300">Discover your favorite groceries!</p>
+        <h1 class="text-3xl font-semibold">Our Store</h1>
+        <p class="mt-2 font-semibold text-gray-300">Discover your favorite groceries!</p>
       </div>
 
 	  <div class="flex font-semibold text-sm items-center pb-2 overflow-y-hidden groceries-category space-x-2">
