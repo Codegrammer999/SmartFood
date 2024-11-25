@@ -65,7 +65,7 @@
             </div>
 
             <transition name="slide">
-                <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-gradient-to-b from-[#18082f] to-bg-slate-200 rounded z-10 h-screen w-1/2 pt-20 gap-4 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
+                <div class="flex flex-col items-center absolute right-0 top-0 text-white shadow-xl bg-[#311952c4] rounded z-10 h-screen w-1/2 pt-20 gap-4 px-6 mobile" v-if="showMobileNav" @click="toggleMobileNav">
 
                     <div class="flex flex-col gap-2" v-if="authStore.user">
 
