@@ -87,7 +87,7 @@ See [Vite Configuration Reference](https://vite.dev/config/).
 ## 👤 About the Developer
 
 Hi! I'm [Codegrammer999](https://github.com/Codegrammer999), a passionate fullstack developer with a keen interest in building scalable and delightful web applications.  
-Feel free to connect with me on [LinkedIn](https://www.linkedin.com/) or reach out by [email](mailto:youremail@example.com).
+Feel free to connect with me on [Whatsapp](https://wa.me/2349061458909) or reach out by [email](mailto:shyyguyy501@gmail.com).
 
 ---
 
